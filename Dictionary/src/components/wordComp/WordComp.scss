@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Quicksand&display=swap');
+
+.word-card {
+    border: 1px solid black;
+    padding: 1rem;
+    margin: 1rem;
+    &__word {
+        font-family: 'Bebas Neue', sans-serif;
+    }
+}
