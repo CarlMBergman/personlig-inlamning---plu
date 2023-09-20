@@ -1,5 +1,3 @@
-
-
 interface returnedWordProps {
     wordDescription: wordDescription
 }

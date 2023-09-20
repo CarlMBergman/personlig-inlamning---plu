@@ -1,9 +1,13 @@
 import { definintions, meaning, phonetics, returnedWordProps, wordDescription } from "../../interfaces"
 import './WordComp.scss'
+import { useContext } from "react";
+import { LikedWordsContext } from "../../reducer/LikedWordsContextProvider";
 
 function WordComp(props: returnedWordProps | null) {
     if (props === null) return
-    console.log(props?.wordDescription);
+    const { list, dispatch } = useContext<any>(LikedWordsContext);
+    console.log(list);
+    
     const word: wordDescription = props.wordDescription
     let noun: JSX.Element[] | null = null;
     let adjective: JSX.Element[] | null = null;
@@ -42,10 +46,24 @@ function WordComp(props: returnedWordProps | null) {
         }
     })
 
+    function handleAdded() {
+        dispatch({
+            type: "added",
+            payload: word
+        })
+    }
 
+    function handleRemove() {
+        dispatch({
+            type: "removed",
+            payload: word
+        })
+    }
     return (
         <article className="word-card">
             <h1 className="word-card__word">{ word.word }</h1>
+            <button onClick={ handleAdded }>Add to favourites!</button>
+            <button onClick={ handleRemove }>Remove this word from favourites!</button>
             {sound && sound }
             
                 {noun && 
