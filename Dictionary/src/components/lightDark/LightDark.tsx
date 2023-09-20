@@ -10,17 +10,14 @@ function LightDark(props: Props) {
     const lightOrDarkSession: string | null = sessionStorage.getItem('lightOrDark')
 
     useEffect(() => {
-        console.log(lightOrDarkSession);
         
         if (lightOrDarkSession === '') {
             props.setLightOrDark(lightOrDarkSession)
             setChecked(false)
-            console.log('light');
             
         } else if (lightOrDarkSession === 'dark'){
             props.setLightOrDark(lightOrDarkSession)
             setChecked(true)
-            console.log('dark');
             
         }
     }, [])
@@ -29,11 +26,9 @@ function LightDark(props: Props) {
         if (checked) {
             props.setLightOrDark('')
             setChecked(current => !current)
-            console.log('nu ska det vara ljust');
             sessionStorage.setItem('lightOrDark', '')
 
         } else {
-            console.log('nu ska det vara mörkt');
             setChecked(current => !current)
             props.setLightOrDark('dark')
             sessionStorage.setItem('lightOrDark', 'dark')

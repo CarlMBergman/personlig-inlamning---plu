@@ -1,14 +1,16 @@
 import { useReducer, createContext } from 'react'
 import { wordDescription } from '../interfaces'
 
-
-export const LikedWordsContext = createContext(null);
+// interface context {
+//     list: wordDescription[],
+//     dispatch: any
+// }
+export const LikedWordsContext = createContext<any>('');
 
 function LikedWordsContextProvider({children}: any) {
     const [likedWords, likedWordsDispatcher] = useReducer<any>(likedWordsReducer, [])
 
     console.log(likedWords);
-    
 
     return (
         <LikedWordsContext.Provider 
