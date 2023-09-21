@@ -6,8 +6,6 @@ import { returnedWords, wordDescription } from './interfaces'
 import LightDark from './components/lightDark/LightDark.tsx'
 import { useContext } from "react";
 import { LikedWordsContext } from './reducer/LikedWordsContextProvider.tsx'
-
-
 /**
  * The main component of the app.
  */
@@ -29,10 +27,8 @@ function App() {
       }
   }
 
-  
   const [showLiked, setShowLiked] = useState<JSX.Element[] | null>(null)
   function handleShowLiked(list: wordDescription[]) {
-    
     
     if (list.length > 0) {
       const likedWordsDisplay = list.map((word: wordDescription, index: number) => {
@@ -46,7 +42,6 @@ function App() {
     setSearchedWord(null)
   }
   
-  
   let showDesc: JSX.Element[] | null = null
   if (searchedWord && Array.isArray(searchedWord)) {
     showDesc = searchedWord.map((word: wordDescription, index: number) => {
@@ -57,7 +52,6 @@ function App() {
     }
     
   }
-
   
   return (
     <div className={`App ${lightOrDark}`}>

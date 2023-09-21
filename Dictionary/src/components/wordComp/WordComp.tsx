@@ -90,8 +90,6 @@ function WordComp(props: returnedWordProps | null) {
             <div>
                 {sound && sound }
             </div>
-            
-            
                 {noun && 
                     <div>
                         <h3>noun</h3>

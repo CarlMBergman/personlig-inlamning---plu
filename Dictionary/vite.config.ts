@@ -13,7 +13,9 @@ export default defineConfig({
     css: true,
     globals: true,
     coverage: {
-      provider: 'istanbul' // or 'v8'
+      provider: 'istanbul',
+      enabled: true,
+      reporter: ['html'] 
     },
   },
 })

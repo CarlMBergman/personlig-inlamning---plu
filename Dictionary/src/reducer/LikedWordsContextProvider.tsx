@@ -1,14 +1,19 @@
 import { useReducer, createContext } from 'react'
 import { wordDescription } from '../interfaces'
 
-// interface context {
-//     list: wordDescription[],
-//     dispatch: any
-// }
-export const LikedWordsContext = createContext<any>('');
+interface context {
+    list?: wordDescription[],
+    dispatch?: React.Dispatch<Action> 
+}
+
+interface Action {
+    type: string,
+    payload: wordDescription
+}
+export const LikedWordsContext = createContext<context | string>('');
 
 function LikedWordsContextProvider({children}: any) {
-    const [likedWords, likedWordsDispatcher] = useReducer<any>(likedWordsReducer, [])
+    const [likedWords, likedWordsDispatcher] = useReducer(likedWordsReducer, [])
 
     console.log(likedWords);
 
@@ -37,7 +42,7 @@ const likedWordsReducer = (likedWords: wordDescription[], action: action) => {
                 }
             })
         default: 
-            console.log('nu kom vi till default');
+            return likedWords
     }
 }
 
