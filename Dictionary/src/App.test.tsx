@@ -60,3 +60,25 @@ it('should add "word" to liked words', async () => {
   
   expect(screen.getByText('The smallest unit of language that has a particular meaning and can be expressed by itself; the smallest discrete, meaningful unit of language. (contrast morpheme.)')).toBeInTheDocument()
 })
+
+it('should remove "word" from liked words', async () => {
+  renderWithContext()
+  const input = screen.getByRole('textbox')
+  const button = screen.getByText('Look up this word!')
+  await userEvent.type(input, 'word')
+  await userEvent.click(button)
+
+  await waitFor(() => {
+    const likeBtn = screen.getAllByText('Add to favourites!')
+    userEvent.click(likeBtn[0])
+  })
+  
+  const showLikedBtn = screen.getByText('Show my liked words!')
+  await userEvent.click(showLikedBtn)
+
+  const removeLiked = screen.getByText('Remove this word from favourites!')
+  await userEvent.click(removeLiked)
+  
+  expect(screen.getByText('You Have not liked any words!')).toBeInTheDocument()
+})
+

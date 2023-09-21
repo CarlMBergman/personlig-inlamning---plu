@@ -1,7 +1,7 @@
 interface returnedWordProps {
     wordDescription: wordDescription,
     liked: boolean,
-    setShowLiked?: (showLiked: wordDescription[]) => void
+    handleShowLiked?: (showLiked: wordDescription[]) => void
 }
 
 interface returnedWords {

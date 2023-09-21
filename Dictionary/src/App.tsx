@@ -29,17 +29,14 @@ function App() {
       }
   }
 
-  // När jag klickar på "show my liked words" så mappas dom 
-  // gillade orden ut, om inga gillade finns så får vi ett meddelande
+  
   const [showLiked, setShowLiked] = useState<JSX.Element[] | null>(null)
   function handleShowLiked(list: wordDescription[]) {
-    console.log('körs jag?');
-    console.log(list);
     
     
     if (list.length > 0) {
       const likedWordsDisplay = list.map((word: wordDescription, index: number) => {
-        return <WordComp setShowLiked={handleShowLiked} liked={ true } wordDescription={ word } key={index}/>
+        return <WordComp handleShowLiked={handleShowLiked} liked={ true } wordDescription={ word } key={index}/>
       })
       setShowLiked(likedWordsDisplay)
     } else {
@@ -49,7 +46,7 @@ function App() {
     setSearchedWord(null)
   }
   
-  // Här mappar jag ut det sökta ordet
+  
   let showDesc: JSX.Element[] | null = null
   if (searchedWord && Array.isArray(searchedWord)) {
     showDesc = searchedWord.map((word: wordDescription, index: number) => {
@@ -62,18 +59,21 @@ function App() {
   }
 
   
-  
-  
   return (
     <div className={`App ${lightOrDark}`}>
       <header className={`header ${lightOrDark}`}>
         <h1>Dictionary</h1>
         <LightDark setLightOrDark={ setLightOrDark }/>
       </header>
-      <main className={`${lightOrDark}`}>
-        <input type="text" onChange={e => setInputWord(e.target.value)}/>
-        <button onClick={ handleGetWord }>Look up this word!</button>
-        <button onClick={ () => handleShowLiked(list) }>Show my liked words!</button>
+      <main className={`main ${lightOrDark}`}>
+        <nav className='main__nav'>
+          <div className='main__nav-search'>
+            <input type="text" onChange={e => setInputWord(e.target.value)}/>
+            <button onClick={ handleGetWord }>Look up this word!</button>
+          </div>
+          <button onClick={ () => handleShowLiked(list) }>Show my liked words!</button>
+        </nav>
+        
         {showDesc &&  showDesc }
         {errorMsg && <p>{ errorMsg }</p>}
         { showLiked && showLiked }

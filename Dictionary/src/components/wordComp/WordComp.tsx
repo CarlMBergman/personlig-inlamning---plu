@@ -1,6 +1,6 @@
-import { definintions, meaning, phonetics, returnedWordProps, returnedWords, wordDescription } from "../../interfaces"
+import { definintions, meaning, phonetics, returnedWordProps, wordDescription } from "../../interfaces"
 import './WordComp.scss'
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { LikedWordsContext } from "../../reducer/LikedWordsContextProvider";
 
 function WordComp(props: returnedWordProps | null) {
@@ -62,7 +62,6 @@ function WordComp(props: returnedWordProps | null) {
         })
     }
 
-   
     function handleRemove() {
         dispatch({
             type: "removed",
@@ -71,11 +70,14 @@ function WordComp(props: returnedWordProps | null) {
         updateLikedDOM()
     }
 
+    // Filtrerar bort det borttagna ordet och skickar tillbaka den nya listan
+    // för att skriva ut den igen
     function updateLikedDOM() {
         const updated = list.filter((wordToKeep: wordDescription) => wordToKeep !== word)
-        if (!props?.setShowLiked) return
-        props.setShowLiked(updated)
+        if (!props?.handleShowLiked) return
+        props.handleShowLiked(updated)
     }
+
     return (
         <article className="word-card">
             <h1 className="word-card__word">{ word.word }</h1>
@@ -85,8 +87,10 @@ function WordComp(props: returnedWordProps | null) {
                 :
                 <button onClick={ handleAdded }>Add to favourites!</button>
             }
-        
-            {sound && sound }
+            <div>
+                {sound && sound }
+            </div>
+            
             
                 {noun && 
                     <div>

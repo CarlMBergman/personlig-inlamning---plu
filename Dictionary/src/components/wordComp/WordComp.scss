@@ -4,7 +4,11 @@
     border: 1px solid black;
     padding: 1rem;
     margin: 1rem;
-    &__word {
-        font-family: 'Bebas Neue', sans-serif;
-    }
+    background-color: grey;
+    font-family: 'Bebas Neue', sans-serif;
+}
+
+li {
+    margin-left: 1rem;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
