@@ -18,6 +18,7 @@ interface wordDescription {
     phonetics: phonetics[],
     sourceUrls: string[],
     word: string
+    id?: number
 }
 
 interface license {
@@ -26,12 +27,13 @@ interface license {
 }
 
 interface meanings {
-    forEach(arg0: (meaning: meaning) => void): unknown
+    [x: string]: any
+    // forEach(arg0: (meaning: meaning) => void): unknown
     meaning: meaning[]
 }
 
 interface meaning {
-    antonyms: [],
+    antonyms: string[],
     definitions: definintions[],
     partOfSpeech: string,
     synonyms: string[]

@@ -15,8 +15,6 @@ export const LikedWordsContext = createContext<context | string>('');
 function LikedWordsContextProvider({children}: any) {
     const [likedWords, likedWordsDispatcher] = useReducer(likedWordsReducer, [])
 
-    console.log(likedWords);
-
     return (
         <LikedWordsContext.Provider 
         value={{ list: likedWords, dispatch: likedWordsDispatcher }}>
@@ -31,13 +29,16 @@ interface action {
 }
 
 const likedWordsReducer = (likedWords: wordDescription[], action: action) => {
+    let id: number = likedWords.length
+    
+    action.payload.id = id + 1
 
     switch (action.type) {
         case "added": 
             return [...likedWords, action.payload];
         case "removed": 
             return likedWords.filter((word) => {
-                if (word.word !== action.payload.word) {
+                if (word.id !== action.payload.id) {
                     return word
                 }
             })
