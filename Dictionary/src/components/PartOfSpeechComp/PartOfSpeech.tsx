@@ -5,6 +5,10 @@ interface Props {
   meaning: meaning;
 }
 
+/**
+ * The component that writes out all the info about our word
+ */
+
 function PartOfSpeech(props: Props) {
   const meaning = props.meaning;
 
@@ -16,7 +20,7 @@ function PartOfSpeech(props: Props) {
     );
   });
   let antonyms: JSX.Element[] | null = null;
-  if (meaning.antonyms) {
+  if (meaning.antonyms.length > 0) {
     antonyms = meaning.antonyms.map((antonym: string, index: number) => {
       return (
         <li className="definition__list" key={index}>
@@ -27,7 +31,7 @@ function PartOfSpeech(props: Props) {
   }
 
   let synonyms: JSX.Element[] | null = null;
-  if (meaning.synonyms) {
+  if (meaning.synonyms.length > 0) {
     synonyms = meaning.synonyms.map((synonym: string, index: number) => {
       return (
         <li className="definition__list" key={index}>
@@ -39,17 +43,17 @@ function PartOfSpeech(props: Props) {
 
   return (
     <div className="definition">
-      <h3>{meaning.partOfSpeech}</h3>
+      <h3 className="definition__heading">{meaning.partOfSpeech}</h3>
       <ul>{definintions}</ul>
       {antonyms && (
         <div>
-          <h3>Antonyms</h3>
+          <h3 className="definition__heading">Antonyms</h3>
           <ul>{antonyms}</ul>
         </div>
       )}
       {synonyms && (
         <div>
-          <h3>Synonyms</h3>
+          <h3 className="definition__heading">Synonyms</h3>
           <ul>{synonyms}</ul>
         </div>
       )}

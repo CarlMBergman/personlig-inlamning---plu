@@ -1,5 +1,9 @@
 import { returnedWords } from "../interfaces";
 
+/**
+ * Where i fetch for a word
+ */
+
 async function getDescription(word: string) {
     const URL = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
 

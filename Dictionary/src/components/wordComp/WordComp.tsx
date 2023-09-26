@@ -10,6 +10,10 @@ import { useContext } from "react";
 import { LikedWordsContext } from "../../reducer/LikedWordsContextProvider";
 import PartOfSpeech from "../PartOfSpeechComp/PartOfSpeech";
 
+/**
+ * The component that displays our searched word/words
+ */
+
 function WordComp(props: returnedWordProps | null) {
   if (props === null) return; // För att kringgå ts :))
   const { list, dispatch } = useContext<any>(LikedWordsContext);
