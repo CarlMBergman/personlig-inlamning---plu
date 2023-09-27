@@ -13,20 +13,6 @@ const server = setupServer(
     (_req, res, ctx) => {
       return res(ctx.json(mockWords));
     }
-  ),
-  rest.get(
-    "https://api.dictionaryapi.dev/api/v2/entries/en/jf349",
-    (_req, res, ctx) => {
-      return res(
-        ctx.json({
-          title: "No Definitions Found",
-          message:
-            "Sorry pal, we couldn't find definitions for the word you were looking for.",
-          resolution:
-            "You can try the search again at later time or head to the web instead.",
-        })
-      );
-    }
   )
 );
 
