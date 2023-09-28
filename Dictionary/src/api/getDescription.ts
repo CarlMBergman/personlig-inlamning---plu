@@ -10,13 +10,13 @@ async function getDescription(word: string) {
     try {
         const response = await fetch(URL)
         const data: returnedWords = await response.json()
-
         console.log(data);
+        
         return data
     } catch (error) {
         return {
             title: 'this is an error',
-            message: 'please type something'
+            message: 'something went wrong, try search for something again!'
         }
     }
     

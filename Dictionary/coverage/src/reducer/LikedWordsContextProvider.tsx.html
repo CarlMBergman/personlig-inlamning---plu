@@ -112,7 +112,8 @@
 <a name='L47'></a><a href='#L47'>47</a>
 <a name='L48'></a><a href='#L48'>48</a>
 <a name='L49'></a><a href='#L49'>49</a>
-<a name='L50'></a><a href='#L50'>50</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -124,7 +125,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
@@ -142,9 +143,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
@@ -161,63 +162,65 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useReducer, createContext } from 'react'
-import { wordDescription } from '../interfaces'
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useReducer, createContext } from "react";
+import { wordDescription } from "../interfaces";
 &nbsp;
 interface context {
-    list?: wordDescription[],
-    dispatch?: React.Dispatch&lt;Action&gt; 
+  list?: wordDescription[];
+  dispatch?: React.Dispatch&lt;Action&gt;;
 }
 &nbsp;
 interface Action {
-    type: string,
-    payload: wordDescription
+  type: string;
+  payload: wordDescription;
 }
-export const LikedWordsContext = createContext&lt;context | string&gt;('');
+export const LikedWordsContext = createContext&lt;context | string&gt;("");
 &nbsp;
-function LikedWordsContextProvider({children}: any) {
-    const [likedWords, likedWordsDispatcher] = useReducer(likedWordsReducer, [])
+function LikedWordsContextProvider({ children }: any) {
+  const [likedWords, likedWordsDispatcher] = useReducer(likedWordsReducer, []);
 &nbsp;
-    return (
-        &lt;LikedWordsContext.Provider 
-        value={{ list: likedWords, dispatch: likedWordsDispatcher }}&gt;
-            {children}
-        &lt;/LikedWordsContext.Provider&gt;
-    )
+  return (
+    &lt;LikedWordsContext.Provider
+      value={{ list: likedWords, dispatch: likedWordsDispatcher }}
+    &gt;
+      {children}
+    &lt;/LikedWordsContext.Provider&gt;
+  );
 }
 &nbsp;
 interface action {
-    payload: wordDescription,
-    type: string
+  payload: wordDescription;
+  type: string;
 }
 &nbsp;
 const likedWordsReducer = (likedWords: wordDescription[], action: action) =&gt; {
-    let id: number = likedWords.length
-    
-    action.payload.id = id + 1
+  let id: number = likedWords.length;
+  action.payload.id = id + 1;
 &nbsp;
-    switch (action.type) {
-        case "added": 
-            return [...likedWords, action.payload];
-        case "removed": 
-            return likedWords.filter((word) =&gt; {
-                if (word.id !== action.payload.id) {
-                    return word
-                }
-            })
-<span class="branch-2 cbranch-no" title="branch not covered" >        default: </span>
-<span class="cstat-no" title="statement not covered" >            return likedWords</span>
-    }
-}
+  switch (action.type) {
+    case "added":
+      return [...likedWords, action.payload];
+    case "removed":
+      return likedWords.filter((word) =&gt; {
+        if (word.id !== action.payload.id) {
+          return word;
+        }
+      });
+<span class="branch-2 cbranch-no" title="branch not covered" >    default:</span>
+<span class="cstat-no" title="statement not covered" >      return likedWords;</span>
+  }
+};
 &nbsp;
-export default LikedWordsContextProvider</pre></td></tr></table></pre>
+export default LikedWordsContextProvider;
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-09-27T09:12:22.293Z
+                at 2023-09-28T09:58:50.220Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

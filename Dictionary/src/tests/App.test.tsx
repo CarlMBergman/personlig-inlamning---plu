@@ -6,12 +6,19 @@ import LikedWordsContextProvider from "../reducer/LikedWordsContextProvider";
 import { rest } from "msw";
 import { setupServer } from "msw/node";
 import mockWords from "../mockWords.json";
+import mockStrong from "../mockStrong.json";
 
 const server = setupServer(
   rest.get(
     "https://api.dictionaryapi.dev/api/v2/entries/en/word",
     (_req, res, ctx) => {
       return res(ctx.json(mockWords));
+    }
+  ),
+  rest.get(
+    "https://api.dictionaryapi.dev/api/v2/entries/en/strong",
+    (_req, res, ctx) => {
+      return res(ctx.json(mockStrong));
     }
   )
 );
@@ -26,17 +33,44 @@ const renderWithContext = () =>
     </LikedWordsContextProvider>
   );
 
+describe("some basic tests", () => {
+  it("should show Dictionary as header", () => {
+    render(<App />);
+    expect(screen.getByText("Dictionary")).toBeInTheDocument();
+  });
+
+  it("should write in inputfield", async () => {
+    render(<App />);
+    const input = screen.getByRole("textbox");
+    await userEvent.type(input, "hejsan");
+
+    expect(input).toHaveValue("hejsan");
+  });
+
+  it("should show the light/dark mode toggle", () => {
+    render(<App />);
+    expect(screen.getByText("light/dark mode")).toBeInTheDocument();
+  });
+});
+
 describe("testing the search function", () => {
-  it("should show description of word when word is searched for", async () => {
+  it("should show description of word strong when strong is searched for", async () => {
     render(<App />);
     const input = screen.getByRole("textbox");
     const button = screen.getByText("Look up this word!");
-    await userEvent.type(input, "word");
+    await userEvent.type(input, "strong");
     await userEvent.click(button);
 
+    expect(screen.getByText("adjective")).toBeInTheDocument();
     expect(
-      screen.getByText("(except in set phrases) To be, become, betide.")
+      screen.getByText("Having an offensive or intense odor or flavor.")
     ).toBeInTheDocument();
+    expect(screen.getAllByText("Antonyms")).toHaveLength(2);
+    expect(screen.getByText("fragile")).toBeInTheDocument();
+    expect(screen.getAllByText("Synonyms")).toHaveLength(2);
+    expect(screen.getByText("ardent")).toBeInTheDocument();
+    expect(screen.getByText("adverb")).toBeInTheDocument();
+    expect(screen.getByText("In a strong manner.")).toBeInTheDocument();
   });
 
   it("should hide the liked words when you search for a new word", async () => {
@@ -98,7 +132,7 @@ describe("add and remove functions", () => {
     await userEvent.click(removeLiked);
 
     expect(
-      screen.getByText("You Have not liked any words!")
+      screen.getByText("You have not liked any words!")
     ).toBeInTheDocument();
   });
 

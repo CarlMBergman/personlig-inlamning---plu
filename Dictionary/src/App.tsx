@@ -14,16 +14,19 @@ function App() {
   const [searchedWord, setSearchedWord] = useState<returnedWords | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>();
   const [lightOrDark, setLightOrDark] = useState<string>("");
+  const [smallHeader, setSmallHeader] = useState<string | null>(null);
   const { list } = useContext<any>(LikedWordsContext);
 
   async function handleGetWord() {
     const word = await getDescription(inputWord);
+    // om word har en title så betyder det att det har blivit något error
     if (word.title) {
       setErrorMsg(word.message);
       setSearchedWord(null);
     } else {
       setSearchedWord(word);
       setErrorMsg(null);
+      setSmallHeader("Search results");
     }
   }
 
@@ -45,9 +48,10 @@ function App() {
       setShowLiked(likedWordsDisplay);
     } else {
       setShowLiked(null);
-      setErrorMsg("You Have not liked any words!");
+      setErrorMsg("You have not liked any words!");
     }
     setSearchedWord(null);
+    setSmallHeader("Liked words");
   }
 
   let showDesc: JSX.Element[] | null = null;
@@ -76,6 +80,7 @@ function App() {
             Show my liked words!
           </button>
         </nav>
+        <h2>{smallHeader}</h2>
 
         {showDesc && showDesc}
         {errorMsg && <p>{errorMsg}</p>}

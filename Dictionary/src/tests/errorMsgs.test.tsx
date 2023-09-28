@@ -40,11 +40,13 @@ describe("error messages", () => {
     ).toBeInTheDocument();
   });
 
-  it("should show an error when nothing is typed when searching", async () => {
+  it("should show an error when there is a problem fetching", async () => {
     render(<App />);
     const button = screen.getByText("Look up this word!");
     await userEvent.click(button);
 
-    expect(screen.getByText("please type something")).toBeInTheDocument();
+    expect(
+      screen.getByText("something went wrong, try search for something again!")
+    ).toBeInTheDocument();
   });
 });

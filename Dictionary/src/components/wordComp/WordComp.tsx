@@ -1,12 +1,11 @@
 import {
-  definintions,
   meaning,
   phonetics,
   returnedWordProps,
   wordDescription,
 } from "../../interfaces";
 import "./WordComp.scss";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { LikedWordsContext } from "../../reducer/LikedWordsContextProvider";
 import PartOfSpeech from "../PartOfSpeechComp/PartOfSpeech";
 
@@ -17,9 +16,16 @@ import PartOfSpeech from "../PartOfSpeechComp/PartOfSpeech";
 function WordComp(props: returnedWordProps | null) {
   if (props === null) return; // För att kringgå ts :))
   const { list, dispatch } = useContext<any>(LikedWordsContext);
+  const [likeBtnText, setLikeBtnText] = useState<string>("Add to favourites!");
+  const [disabledLikeBtn, setDisabledLikeBtn] = useState<boolean>(false);
 
   const word: wordDescription = props.wordDescription;
   let sound: any = null;
+
+  useEffect(() => {
+    setLikeBtnText("Add to favourites!");
+    setDisabledLikeBtn(false);
+  }, [word]);
 
   const meaning = word.meanings.map((meaning: meaning, index: number) => {
     return <PartOfSpeech meaning={meaning} key={index} />;
@@ -38,6 +44,8 @@ function WordComp(props: returnedWordProps | null) {
       type: "added",
       payload: word,
     });
+    setLikeBtnText("Added! <3");
+    setDisabledLikeBtn(true);
   }
 
   function handleRemove() {
@@ -52,7 +60,7 @@ function WordComp(props: returnedWordProps | null) {
   // för att skriva ut den igen
   function updateLikedDOM() {
     const updated = list.filter(
-      (wordToKeep: wordDescription) => wordToKeep !== word
+      (wordToKeep: wordDescription) => wordToKeep.id !== word.id
     );
     if (!props?.handleShowLiked) return;
     props.handleShowLiked(updated);
@@ -63,11 +71,17 @@ function WordComp(props: returnedWordProps | null) {
       <h1 className="word-card__word">{word.word}</h1>
       <p>{word.phonetic}</p>
       {props.liked ? (
-        <button onClick={handleRemove}>
+        <button className="word-card__btn" onClick={handleRemove}>
           Remove this word from favourites!
         </button>
       ) : (
-        <button onClick={handleAdded}>Add to favourites!</button>
+        <button
+          className="word-card__btn"
+          disabled={disabledLikeBtn}
+          onClick={handleAdded}
+        >
+          {likeBtnText}
+        </button>
       )}
       <div>{sound && sound}</div>
 
